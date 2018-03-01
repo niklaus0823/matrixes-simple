@@ -1,8 +1,6 @@
-# Matrixes Microservice Tool Chain Simple
-
----
-
-Simple for Matrixes Microservice on Node.js.
+matrixes-simple
+=========================
+gRpc Server Simple for `protoc-gen-grpc` and `matrixes-lib`.
 
 ## Install
 
@@ -10,10 +8,10 @@ Simple for Matrixes Microservice on Node.js.
 // install npm modules
 npm install
 
-// start grpc server
+// start gRpc server
 node ./build/server.js
 
-// start grpc client
+// start gRpc client
 node ./build/client.js
 ```
 
