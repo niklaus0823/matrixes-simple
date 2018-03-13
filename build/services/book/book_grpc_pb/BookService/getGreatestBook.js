@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const book_pb_1 = require("../../../../proto/book/book_pb");
-exports.getGreatesBookHandler = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
-    const call = ctx.call;
-    const callback = ctx.callback;
+exports.getGreatestBookHandler = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
+    let call = ctx.call;
+    let callback = ctx.callback;
     console.log(`[getGreatesBookHandler] start`);
     const book = yield getGreatesBook(call, ctx);
     console.log(`[getGreatesBookHandler] done`);
@@ -28,9 +28,9 @@ function getGreatesBook(call, ctx) {
         });
         call.on('end', () => {
             let book = new book_pb_1.Book();
-            // book.setIsbn(lastRequest.getIsbn());
-            // book.setAuthor('mars');
-            // book.setTitle('Book Title ' + lastRequest.getIsbn());
+            book.setIsbn(lastRequest.getIsbn());
+            book.setAuthor('mars');
+            book.setTitle('Book Title ' + lastRequest.getIsbn());
             console.log(`[getGreatesBookHandler] response: ${JSON.stringify(book.toObject())}`);
             resolve(book);
         });

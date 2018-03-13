@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const book_pb_1 = require("../../../../proto/book/book_pb");
 exports.getBooksViaAuthorHandler = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
-    const call = ctx.call;
+    let call = ctx.call;
+    let request = call.request;
     console.log(`[getBooksViaAuthorHandler] start`);
     yield getBooksViaAuthor(call, ctx);
     console.log(`[getBooksViaAuthorHandler] done`);

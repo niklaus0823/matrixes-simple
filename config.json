@@ -1,0 +1,31 @@
+{
+  "name": "gateway",
+  "host": "127.0.0.1",
+  "port": 9090,
+  "tracer": {
+    "host": "172.16.0.44",
+    "port": 9411
+  },
+  "database": {
+    "MySql": [
+      {
+        "DB_NAME": "MicroService_0",
+        "DB_HOST": ["172.16.0.44", 3306],
+        "DB_USER": "root",
+        "DB_PWD": "Shinezone2017",
+        "DB_POOL_OPTION": {
+          "MIN_CONN": 5,
+          "MAX_CONN": 25,
+          "CONN_INIT": 10,
+          "CONN_TIMEOUT": 30000,
+          "WAIT_ATTEMPTS_LIMIT": 3
+        }
+      }
+    ]
+  },
+  "modules": {
+    "order": {
+      "1.0.0": ["127.0.0.1", 9091]
+    }
+  }
+}

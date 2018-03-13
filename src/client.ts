@@ -1,72 +1,86 @@
 import * as grpc from 'grpc';
-import {Duplex, Readable, Writable} from "stream";
+import {Duplex, Readable, Writable} from 'stream';
 import {BookServiceClient} from './proto/book/book_grpc_pb';
 import {Book, GetBookRequest, GetBookViaAuthorRequest} from './proto/book/book_pb';
+import MSBookServiceClient from './clients/book/MSBookServiceClient';
 
-const client = new BookServiceClient('127.0.0.1:8080', grpc.credentials.createInsecure());
+const md = new grpc.Metadata();
+md.set('name', 'fengjie');
+
+
+
+let bookClient = new MSBookServiceClient('127.0.0.1:8080');
 
 function getBook() {
     const request = new GetBookRequest();
     request.setIsbn(1);
 
-    // send request
-    client.getBook(request, (err, response: Book) => {
-        // handle response
-        console.log(`[getBook] response: ${JSON.stringify(response.toObject())}`);
-        console.log(`[getBook] done`);
-    });
+    bookClient.getBook(request, md)
+        .then((res) => {
+            console.log(`[getBook] response: ${JSON.stringify(res.toObject())}`);
+            console.log(`[getBook] done`);
+        })
+        .catch((err) => {
+            console.log(`[getBook] err: ${err.message}`);
+            console.log(`[getBook] done`);
+        });
 }
 
 function getBooks() {
-    let call = client.getBooks() as Duplex;
-
-    // handle stream call
-    call.on('data', (response: Book) => {
-        console.log(`[getBooks] response: ${JSON.stringify(response.toObject())}`);
-    });
-    call.on('end', () => {
-        console.log(`[getBooks] done`);
-    });
-
-    // send request
+    const requests = [];
     for (let i = 1; i <= 10; i++) {
         const request = new GetBookRequest();
         request.setIsbn(i);
-        call.write(request);
+        requests.push(request);
+
     }
 
-    call.end();
+    bookClient.getBooks(requests, md)
+        .then((res) => {
+            console.log(`[getBooks] response: ${JSON.stringify(res)}`);
+            console.log(`[getBooks] done`);
+        })
+        .catch((err) => {
+            console.log(`[getBooks] err: ${err.message}`);
+            console.log(`[getBooks] done`);
+        });
 }
 
 function getBooksViaAuthor() {
     const request = new GetBookViaAuthorRequest();
     request.setAuthor('fengjie');
 
-    let call = client.getBooksViaAuthor(request) as Readable;
-    call.on('data', (response: Book) => {
-        console.log(`[getBooksViaAuthor] response: ${JSON.stringify(response.toObject())}`);
-    });
-    call.on('end', () => {
-        console.log(`[getBooksViaAuthor] done`);
-    });
+    bookClient.getBooksViaAuthor(request, md)
+        .then((res) => {
+            console.log(`[getBooksViaAuthor] response: ${JSON.stringify(res)}`);
+            console.log(`[getBooksViaAuthor] done`);
+        })
+        .catch((err) => {
+            console.log(`[getBooksViaAuthor] err: ${err.message}`);
+            console.log(`[getBooksViaAuthor] done`);
+        });
 }
 
 function getGreatesBook() {
-    let call: Writable = client.getGreatestBook((error, response: Book) => {
-        console.log(`[getGreatesBook] response: ${JSON.stringify(response.toObject())}`);
-        console.log(`[getGreatesBook] done`);
-    });
-
+    const requests = [];
     for (let i = 1; i <= 10; i++) {
-        let request = new GetBookRequest();
+        const request = new GetBookRequest();
         request.setIsbn(i);
-        call.write(request);
-    }
+        requests.push(request);
 
-    call.end();
+    }
+    bookClient.getGreatestBook(requests, md)
+        .then((res) => {
+            console.log(`[getGreatestBook] response: ${JSON.stringify(res.toObject())}`);
+            console.log(`[getGreatestBook] done`);
+        })
+        .catch((err) => {
+            console.log(`[getGreatestBook] err: ${err.message}`);
+            console.log(`[getGreatestBook] done`);
+        });
 }
 
-getBook();
-getBooks();
-getBooksViaAuthor();
+// getBook();
+// getBooks();
+// getBooksViaAuthor();
 getGreatesBook();

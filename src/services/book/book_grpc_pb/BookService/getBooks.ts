@@ -1,8 +1,8 @@
 import {RpcContext, RpcMiddleware, MiddlewareNext, IRpcServerDuplexStream} from 'matrixes-lib';
-import {GetBookRequest, Book,} from '../../../../proto/book/book_pb';
+import {GetBookRequest, Book} from '../../../../proto/book/book_pb';
 
 export const getBooksHandler: RpcMiddleware = async (ctx: RpcContext, next: MiddlewareNext) => {
-    const call = ctx.call as IRpcServerDuplexStream<GetBookRequest, Book>;
+    let call = ctx.call as IRpcServerDuplexStream<GetBookRequest, Book>;
 
     console.log(`[getBooksHandler] start`);
     await getBooks(call, ctx);

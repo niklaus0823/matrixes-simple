@@ -1,9 +1,10 @@
 import {RpcContext, RpcMiddleware, MiddlewareNext, IRpcServerCallback, IRpcServerUnaryCall} from 'matrixes-lib';
-import {GetBookRequest, Book,} from '../../../../proto/book/book_pb';
+import {GetBookRequest, Book} from '../../../../proto/book/book_pb';
 
 export const getBookHandler: RpcMiddleware = async (ctx: RpcContext, next: MiddlewareNext) => {
-    const call = ctx.call as IRpcServerUnaryCall<GetBookRequest>;
-    const callback = ctx.callback as IRpcServerCallback<Book>;
+    let call = ctx.call as IRpcServerUnaryCall<GetBookRequest>;
+    let callback = ctx.callback as IRpcServerCallback<Book>;
+    let request = call.request as GetBookRequest;
 
     console.log(`[getBookHandler] start`);
     const book = await getBook(call, ctx);
@@ -14,7 +15,7 @@ export const getBookHandler: RpcMiddleware = async (ctx: RpcContext, next: Middl
     return Promise.resolve();
 };
 
-function getBook(call: IRpcServerUnaryCall<GetBookRequest>, ctx?:RpcContext): Promise<Book> {
+function getBook(call: IRpcServerUnaryCall<GetBookRequest>, ctx?: RpcContext): Promise<Book> {
     let request = call.request as GetBookRequest;
     console.log(`[getBookHandler] request: ${JSON.stringify(request.toObject())}`);
 

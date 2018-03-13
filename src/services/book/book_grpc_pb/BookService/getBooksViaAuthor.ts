@@ -1,8 +1,9 @@
 import {RpcContext, RpcMiddleware, MiddlewareNext, IRpcServerWriteableStream} from 'matrixes-lib';
-import {GetBookViaAuthorRequest, Book,} from '../../../../proto/book/book_pb';
+import {GetBookViaAuthorRequest, Book} from '../../../../proto/book/book_pb';
 
 export const getBooksViaAuthorHandler: RpcMiddleware = async (ctx: RpcContext, next: MiddlewareNext) => {
-    const call = ctx.call as IRpcServerWriteableStream<GetBookViaAuthorRequest>;
+    let call = ctx.call as IRpcServerWriteableStream<GetBookViaAuthorRequest>;
+    let request = call.request as GetBookViaAuthorRequest;
 
     console.log(`[getBooksViaAuthorHandler] start`);
     await getBooksViaAuthor(call, ctx);
@@ -13,7 +14,7 @@ export const getBooksViaAuthorHandler: RpcMiddleware = async (ctx: RpcContext, n
     return Promise.resolve();
 };
 
-function getBooksViaAuthor(call: IRpcServerWriteableStream<GetBookViaAuthorRequest>, ctx?:RpcContext): Promise<boolean> {
+function getBooksViaAuthor(call: IRpcServerWriteableStream<GetBookViaAuthorRequest>, ctx?: RpcContext): Promise<boolean> {
     let request = call.request as GetBookViaAuthorRequest;
     console.log(`[getBooksViaAuthorHandler] request: ${JSON.stringify(request.toObject())}`);
 

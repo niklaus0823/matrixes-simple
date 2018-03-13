@@ -1,0 +1,117 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "book/book.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/getBook": {
+      "post": {
+        "operationId": "GetBookApi",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/bookBook"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/bookGetBookRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BookApiService"
+        ]
+      }
+    },
+    "/v1/getBooksViaAuthor": {
+      "post": {
+        "operationId": "GetBooksViaAuthorApi",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/bookBook"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/bookGetBookViaAuthorRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BookApiService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "bookBook": {
+      "type": "object",
+      "properties": {
+        "isbn": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        }
+      }
+    },
+    "bookGetBookRequest": {
+      "type": "object",
+      "properties": {
+        "isbn": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "bookGetBookViaAuthorRequest": {
+      "type": "object",
+      "properties": {
+        "author": {
+          "type": "string"
+        }
+      }
+    },
+    "userUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
