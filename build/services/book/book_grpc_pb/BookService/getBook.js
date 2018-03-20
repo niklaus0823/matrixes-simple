@@ -8,15 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const matrixes_lib_1 = require("matrixes-lib");
 const book_pb_1 = require("../../../../proto/book/book_pb");
 exports.getBookHandler = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
     let call = ctx.call;
     let callback = ctx.callback;
     let request = call.request;
     console.log(`[getBookHandler] start`);
-    const book = yield getBook(call, ctx);
-    console.log(`[getBookHandler] done`);
-    callback(null, book);
+    try {
+        yield ctx.validate(request, {
+            isbn: matrixes_lib_1.joiType.vInt64.activate().required().greater(5).less(10),
+        });
+        const book = yield getBook(call, ctx);
+        console.log(`[getBookHandler] done`);
+        callback(null, book);
+    }
+    catch (e) {
+        console.log(`[getBookHandler] error: ${e.message}`);
+        callback(e, null);
+    }
     console.log(`[getBookHandler] end`);
     return Promise.resolve();
 });

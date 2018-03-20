@@ -1,4 +1,4 @@
-import {RpcContext, RpcMiddleware, MiddlewareNext, IRpcServerCallback, IRpcServerUnaryCall} from 'matrixes-lib';
+import {RpcContext, RpcMiddleware, MiddlewareNext, IRpcServerCallback, IRpcServerUnaryCall, joi, joiType} from 'matrixes-lib';
 import {GetUserRequest, User} from '../../../../proto/user/user_pb';
 
 export const getBookUserHandler: RpcMiddleware = async (ctx: RpcContext, next: MiddlewareNext) => {

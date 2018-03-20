@@ -6,6 +6,17 @@ var book_book_pb = require('../book/book_pb.js');
 var google_api_annotations_pb = require('../google/api/annotations_pb.js');
 var user_user_pb = require('../user/user_pb.js');
 
+function serialize_com_book_AuthorBook(arg) {
+  if (!(arg instanceof book_book_pb.AuthorBook)) {
+    throw new Error('Expected argument of type com.book.AuthorBook');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_com_book_AuthorBook(buffer_arg) {
+  return book_book_pb.AuthorBook.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_com_book_Book(arg) {
   if (!(arg instanceof book_book_pb.Book)) {
     throw new Error('Expected argument of type com.book.Book');
@@ -15,6 +26,17 @@ function serialize_com_book_Book(arg) {
 
 function deserialize_com_book_Book(buffer_arg) {
   return book_book_pb.Book.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_com_book_GetAuthorBookApiRequest(arg) {
+  if (!(arg instanceof book_book_pb.GetAuthorBookApiRequest)) {
+    throw new Error('Expected argument of type com.book.GetAuthorBookApiRequest');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_com_book_GetAuthorBookApiRequest(buffer_arg) {
+  return book_book_pb.GetAuthorBookApiRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_com_book_GetBookRequest(arg) {
@@ -133,16 +155,16 @@ var BookApiServiceService = exports.BookApiServiceService = {
     responseSerialize: serialize_com_book_Book,
     responseDeserialize: deserialize_com_book_Book,
   },
-  getBooksViaAuthorApi: {
-    path: '/com.book.BookApiService/GetBooksViaAuthorApi',
+  getAuthorBookApi: {
+    path: '/com.book.BookApiService/GetAuthorBookApi',
     requestStream: false,
     responseStream: false,
-    requestType: book_book_pb.GetBookViaAuthorRequest,
-    responseType: book_book_pb.Book,
-    requestSerialize: serialize_com_book_GetBookViaAuthorRequest,
-    requestDeserialize: deserialize_com_book_GetBookViaAuthorRequest,
-    responseSerialize: serialize_com_book_Book,
-    responseDeserialize: deserialize_com_book_Book,
+    requestType: book_book_pb.GetAuthorBookApiRequest,
+    responseType: book_book_pb.AuthorBook,
+    requestSerialize: serialize_com_book_GetAuthorBookApiRequest,
+    requestDeserialize: deserialize_com_book_GetAuthorBookApiRequest,
+    responseSerialize: serialize_com_book_AuthorBook,
+    responseDeserialize: deserialize_com_book_AuthorBook,
   },
 };
 

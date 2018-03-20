@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "user/user.proto";
+
+package com.book;
+
+message Book {
+    int64 isbn = 1;
+    string title = 2;
+    string author = 3;
+}
+
+message AuthorBook {
+    int64 isbn = 1;
+    string title = 2;
+    string author = 3;
+    user.User user = 4;
+    repeated string tags = 5;
+    map<string, string> sub_tags = 7;
+    repeated user.User buyers = 6;
+    map<string, user.User> writers = 8;
+}
+
+message GetBookRequest {
+    /**
+     {
+        "required": true,
+        "numberMin": 5,
+        "numberMax": 10
+     }
+     */
+    int64 isbn = 1;
+}
+
+message GetBookViaAuthorRequest {
+    /**
+     {
+        "required": true,
+        "stringLengthMin": 5,
+        "stringLengthMax": 10
+     }
+     */
+    string author = 1;
+}
+
+message GetAuthorBookApiRequest {
+    /**
+     {
+        "required": true,
+        "numberMin": 5,
+        "numberMax": 10
+     }
+     */
+    int64 isbn = 1;
+    /**
+     {
+        "required": true,
+        "enumOption": [ "GMAIL", "YAHOO" ]
+     }
+     */
+    string type = 2;
+    /**
+     {
+        "required": true,
+        "stringLengthMin": 5,
+        "stringLengthMax": 10
+     }
+     */
+    string author = 3;
+    /**
+     {
+        "required": true,
+        "defaultValue": false,
+        "booleanTruthy": [ "1", 1, "true" ],
+        "booleanFalsy": [ "0", 0, "false" ]
+     }
+     */
+    bool is_new = 4;
+    /**
+     {
+        "required": true
+     }
+     */
+    user.User user = 5;
+    /**
+     {
+        "required": true,
+        "stringLengthMin": 5,
+        "stringLengthMax": 10
+        "regex": "/^[a-zA-Z]*$/"
+     }
+     */
+    repeated string tags = 6;
+    /**
+     {
+        "required": true,
+        "stringLengthMin": 5,
+        "stringLengthMax": 10
+     }
+     */
+    map<string, string> sub_tags = 7;
+    repeated user.User buyers = 8;
+    map<string, user.User> writers = 9;
+}
+
+service BookService {
+    rpc GetBook (GetBookRequest) returns (Book) {}
+    rpc GetBooksViaAuthor (GetBookViaAuthorRequest) returns (stream Book) {}
+    rpc GetGreatestBook (stream GetBookRequest) returns (Book) {}
+    rpc GetBooks (stream GetBookRequest) returns (stream Book) {}
+    rpc GetBookUser (user.GetUserRequest) returns (user.User) {}
+}
+
+service BookApiService {
+    rpc GetBookApi (GetBookRequest) returns (Book) {
+        option (google.api.http) = {
+            post: "/v1/getBook"
+            body: "*"
+        };
+    }
+    rpc GetAuthorBookApi (GetAuthorBookApiRequest) returns (AuthorBook) {
+        option (google.api.http) = {
+            post: "/v1/getBookUser"
+            body: "*"
+        };
+    }
+}
+
+message BookStore {
+    string name = 1;
+    map<int64, string> books = 2;
+}
+
+enum EnumSample {
+    option allow_alias = true;
+    UNKNOWN = 0;
+    STARTED = 1;
+    RUNNING = 1;
+}

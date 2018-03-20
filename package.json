@@ -9,8 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "google-protobuf": "^3.5.0",
-    "grpc": "^1.9.1",
-    "matrixes-lib": "^1.0.5"
+    "grpc": "^1.9.1"
   },
   "devDependencies": {
     "@types/google-protobuf": "^3.2.7"

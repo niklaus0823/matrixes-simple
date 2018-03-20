@@ -99,7 +99,7 @@ export class BookServiceClient extends grpc.Client implements IBookServiceClient
 
 interface IBookApiServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   getBookApi: IGetBookApi
-  getBooksViaAuthorApi: IGetBooksViaAuthorApi
+  getAuthorBookApi: IGetAuthorBookApi
 }
 
 interface IGetBookApi {
@@ -114,23 +114,23 @@ interface IGetBookApi {
   responseDeserialize: (buffer: Uint8Array) => book_book_pb.Book;
 }
 
-interface IGetBooksViaAuthorApi {
-  path: string; // "/com.book.BookApiService/GetBooksViaAuthorApi"
+interface IGetAuthorBookApi {
+  path: string; // "/com.book.BookApiService/GetAuthorBookApi"
   requestStream: boolean; // false
   responseStream: boolean; // false
-  requestType: book_book_pb.GetBookViaAuthorRequest;
-  responseType: book_book_pb.Book;
-  requestSerialize: (arg: book_book_pb.GetBookViaAuthorRequest) => Buffer;
-  requestDeserialize: (buffer: Uint8Array) => book_book_pb.GetBookViaAuthorRequest;
-  responseSerialize: (arg: book_book_pb.Book) => Buffer;
-  responseDeserialize: (buffer: Uint8Array) => book_book_pb.Book;
+  requestType: book_book_pb.GetAuthorBookApiRequest;
+  responseType: book_book_pb.AuthorBook;
+  requestSerialize: (arg: book_book_pb.GetAuthorBookApiRequest) => Buffer;
+  requestDeserialize: (buffer: Uint8Array) => book_book_pb.GetAuthorBookApiRequest;
+  responseSerialize: (arg: book_book_pb.AuthorBook) => Buffer;
+  responseDeserialize: (buffer: Uint8Array) => book_book_pb.AuthorBook;
 }
 
 export interface IBookApiServiceClient {
   getBookApi(request: book_book_pb.GetBookRequest, callback: (error: Error | null, response: book_book_pb.Book) => void): grpc.ClientUnaryCall;
   getBookApi(request: book_book_pb.GetBookRequest, metadata: grpc.Metadata, callback: (error: Error | null, response: book_book_pb.Book) => void): grpc.ClientUnaryCall;
-  getBooksViaAuthorApi(request: book_book_pb.GetBookViaAuthorRequest, callback: (error: Error | null, response: book_book_pb.Book) => void): grpc.ClientUnaryCall;
-  getBooksViaAuthorApi(request: book_book_pb.GetBookViaAuthorRequest, metadata: grpc.Metadata, callback: (error: Error | null, response: book_book_pb.Book) => void): grpc.ClientUnaryCall;
+  getAuthorBookApi(request: book_book_pb.GetAuthorBookApiRequest, callback: (error: Error | null, response: book_book_pb.AuthorBook) => void): grpc.ClientUnaryCall;
+  getAuthorBookApi(request: book_book_pb.GetAuthorBookApiRequest, metadata: grpc.Metadata, callback: (error: Error | null, response: book_book_pb.AuthorBook) => void): grpc.ClientUnaryCall;
 }
 
 export const BookApiServiceService: IBookApiServiceService;
@@ -138,7 +138,7 @@ export class BookApiServiceClient extends grpc.Client implements IBookApiService
   constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
   public getBookApi(request: book_book_pb.GetBookRequest, callback: (error: Error | null, response: book_book_pb.Book) => void): grpc.ClientUnaryCall;
   public getBookApi(request: book_book_pb.GetBookRequest, metadata: grpc.Metadata, callback: (error: Error | null, response: book_book_pb.Book) => void): grpc.ClientUnaryCall;
-  public getBooksViaAuthorApi(request: book_book_pb.GetBookViaAuthorRequest, callback: (error: Error | null, response: book_book_pb.Book) => void): grpc.ClientUnaryCall;
-  public getBooksViaAuthorApi(request: book_book_pb.GetBookViaAuthorRequest, metadata: grpc.Metadata, callback: (error: Error | null, response: book_book_pb.Book) => void): grpc.ClientUnaryCall;
+  public getAuthorBookApi(request: book_book_pb.GetAuthorBookApiRequest, callback: (error: Error | null, response: book_book_pb.AuthorBook) => void): grpc.ClientUnaryCall;
+  public getAuthorBookApi(request: book_book_pb.GetAuthorBookApiRequest, metadata: grpc.Metadata, callback: (error: Error | null, response: book_book_pb.AuthorBook) => void): grpc.ClientUnaryCall;
 }
 

@@ -1,6 +1,8 @@
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {messageConventions} JS Compiler reports an error if a variable or
+ *     field starts with 'MSG_' and isn't a translatable message.
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
@@ -54,6 +56,7 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
      *     http://goto/soy-param-migration
      * @param {!proto.google.api.Http} msg The msg instance to transform.
      * @return {!Object}
+     * @suppress {unusedLocalVariables} f is only used for nested messages
      */
     proto.google.api.Http.toObject = function (includeInstance, msg) {
         var f, obj = {
@@ -115,6 +118,7 @@ proto.google.api.Http.prototype.serializeBinary = function () {
  * format), writing to the given BinaryWriter.
  * @param {!proto.google.api.Http} message
  * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
  */
 proto.google.api.Http.serializeBinaryToWriter = function (message, writer) {
     var f = undefined;
@@ -125,8 +129,6 @@ proto.google.api.Http.serializeBinaryToWriter = function (message, writer) {
 };
 /**
  * repeated HttpRule rules = 1;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.google.api.HttpRule>}
  */
 proto.google.api.Http.prototype.getRulesList = function () {
@@ -218,6 +220,7 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
      *     http://goto/soy-param-migration
      * @param {!proto.google.api.HttpRule} msg The msg instance to transform.
      * @return {!Object}
+     * @suppress {unusedLocalVariables} f is only used for nested messages
      */
     proto.google.api.HttpRule.toObject = function (includeInstance, msg) {
         var f, obj = {
@@ -320,6 +323,7 @@ proto.google.api.HttpRule.prototype.serializeBinary = function () {
  * format), writing to the given BinaryWriter.
  * @param {!proto.google.api.HttpRule} message
  * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
  */
 proto.google.api.HttpRule.serializeBinaryToWriter = function (message, writer) {
     var f = undefined;
@@ -510,8 +514,6 @@ proto.google.api.HttpRule.prototype.setBody = function (value) {
 };
 /**
  * repeated HttpRule additional_bindings = 11;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.google.api.HttpRule>}
  */
 proto.google.api.HttpRule.prototype.getAdditionalBindingsList = function () {
@@ -570,6 +572,7 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
      *     http://goto/soy-param-migration
      * @param {!proto.google.api.CustomHttpPattern} msg The msg instance to transform.
      * @return {!Object}
+     * @suppress {unusedLocalVariables} f is only used for nested messages
      */
     proto.google.api.CustomHttpPattern.toObject = function (includeInstance, msg) {
         var f, obj = {
@@ -635,6 +638,7 @@ proto.google.api.CustomHttpPattern.prototype.serializeBinary = function () {
  * format), writing to the given BinaryWriter.
  * @param {!proto.google.api.CustomHttpPattern} message
  * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
  */
 proto.google.api.CustomHttpPattern.serializeBinaryToWriter = function (message, writer) {
     var f = undefined;

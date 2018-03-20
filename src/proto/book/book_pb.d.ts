@@ -33,6 +33,58 @@ export namespace Book {
   }
 }
 
+export class AuthorBook extends jspb.Message {
+  getIsbn(): number;
+  setIsbn(value: number): void;
+
+  getTitle(): string;
+  setTitle(value: string): void;
+
+  getAuthor(): string;
+  setAuthor(value: string): void;
+
+  hasUser(): boolean;
+  clearUser(): void;
+  getUser(): user_user_pb.User | undefined;
+  setUser(value?: user_user_pb.User): void;
+
+  clearTagsList(): void;
+  getTagsList(): Array<string>;
+  setTagsList(value: Array<string>): void;
+  addTags(value: string, index?: number): string;
+
+  getSubTagsMap(): jspb.Map<string, string>;
+  clearSubTagsMap(): void;
+  clearBuyersList(): void;
+  getBuyersList(): Array<user_user_pb.User>;
+  setBuyersList(value: Array<user_user_pb.User>): void;
+  addBuyers(value?: user_user_pb.User, index?: number): user_user_pb.User;
+
+  getWritersMap(): jspb.Map<string, user_user_pb.User>;
+  clearWritersMap(): void;
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): AuthorBook.AsObject;
+  static toObject(includeInstance: boolean, msg: AuthorBook): AuthorBook.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: AuthorBook, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AuthorBook;
+  static deserializeBinaryFromReader(message: AuthorBook, reader: jspb.BinaryReader): AuthorBook;
+}
+
+export namespace AuthorBook {
+  export type AsObject = {
+    isbn: number,
+    title: string,
+    author: string,
+    user?: user_user_pb.User.AsObject,
+    tagsList: Array<string>,
+    subTagsMap: Array<[string, string]>,
+    buyersList: Array<user_user_pb.User.AsObject>,
+    writersMap: Array<[string, user_user_pb.User.AsObject]>,
+  }
+}
+
 export class GetBookRequest extends jspb.Message {
   getIsbn(): number;
   setIsbn(value: number): void;
@@ -70,6 +122,62 @@ export class GetBookViaAuthorRequest extends jspb.Message {
 export namespace GetBookViaAuthorRequest {
   export type AsObject = {
     author: string,
+  }
+}
+
+export class GetAuthorBookApiRequest extends jspb.Message {
+  getIsbn(): number;
+  setIsbn(value: number): void;
+
+  getType(): string;
+  setType(value: string): void;
+
+  getAuthor(): string;
+  setAuthor(value: string): void;
+
+  getIsNew(): boolean;
+  setIsNew(value: boolean): void;
+
+  hasUser(): boolean;
+  clearUser(): void;
+  getUser(): user_user_pb.User | undefined;
+  setUser(value?: user_user_pb.User): void;
+
+  clearTagsList(): void;
+  getTagsList(): Array<string>;
+  setTagsList(value: Array<string>): void;
+  addTags(value: string, index?: number): string;
+
+  getSubTagsMap(): jspb.Map<string, string>;
+  clearSubTagsMap(): void;
+  clearBuyersList(): void;
+  getBuyersList(): Array<user_user_pb.User>;
+  setBuyersList(value: Array<user_user_pb.User>): void;
+  addBuyers(value?: user_user_pb.User, index?: number): user_user_pb.User;
+
+  getWritersMap(): jspb.Map<string, user_user_pb.User>;
+  clearWritersMap(): void;
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetAuthorBookApiRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetAuthorBookApiRequest): GetAuthorBookApiRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetAuthorBookApiRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetAuthorBookApiRequest;
+  static deserializeBinaryFromReader(message: GetAuthorBookApiRequest, reader: jspb.BinaryReader): GetAuthorBookApiRequest;
+}
+
+export namespace GetAuthorBookApiRequest {
+  export type AsObject = {
+    isbn: number,
+    type: string,
+    author: string,
+    isNew: boolean,
+    user?: user_user_pb.User.AsObject,
+    tagsList: Array<string>,
+    subTagsMap: Array<[string, string]>,
+    buyersList: Array<user_user_pb.User.AsObject>,
+    writersMap: Array<[string, user_user_pb.User.AsObject]>,
   }
 }
 

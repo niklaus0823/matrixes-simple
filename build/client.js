@@ -8,7 +8,7 @@ md.set('name', 'fengjie');
 let bookClient = new MSBookServiceClient_1.default('127.0.0.1:8080');
 function getBook() {
     const request = new book_pb_1.GetBookRequest();
-    request.setIsbn(1);
+    request.setIsbn(6);
     bookClient.getBook(request, md)
         .then((res) => {
         console.log(`[getBook] response: ${JSON.stringify(res.toObject())}`);
@@ -21,14 +21,16 @@ function getBook() {
 }
 function getBooks() {
     const requests = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 6; i < 9; i++) {
         const request = new book_pb_1.GetBookRequest();
         request.setIsbn(i);
         requests.push(request);
     }
     bookClient.getBooks(requests, md)
         .then((res) => {
-        console.log(`[getBooks] response: ${JSON.stringify(res)}`);
+        res.forEach((book) => {
+            console.log(`[getBooks] response: ${JSON.stringify(book.toObject())}`);
+        });
         console.log(`[getBooks] done`);
     })
         .catch((err) => {
@@ -41,7 +43,9 @@ function getBooksViaAuthor() {
     request.setAuthor('fengjie');
     bookClient.getBooksViaAuthor(request, md)
         .then((res) => {
-        console.log(`[getBooksViaAuthor] response: ${JSON.stringify(res)}`);
+        res.forEach((book) => {
+            console.log(`[getBooksViaAuthor] response: ${JSON.stringify(book.toObject())}`);
+        });
         console.log(`[getBooksViaAuthor] done`);
     })
         .catch((err) => {
@@ -66,7 +70,7 @@ function getGreatesBook() {
         console.log(`[getGreatestBook] done`);
     });
 }
-// getBook();
-// getBooks();
-// getBooksViaAuthor();
+getBook();
+getBooks();
+getBooksViaAuthor();
 getGreatesBook();

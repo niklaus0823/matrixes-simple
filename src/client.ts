@@ -13,7 +13,7 @@ let bookClient = new MSBookServiceClient('127.0.0.1:8080');
 
 function getBook() {
     const request = new GetBookRequest();
-    request.setIsbn(1);
+    request.setIsbn(6);
 
     bookClient.getBook(request, md)
         .then((res) => {
@@ -28,7 +28,7 @@ function getBook() {
 
 function getBooks() {
     const requests = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 6; i < 9; i++) {
         const request = new GetBookRequest();
         request.setIsbn(i);
         requests.push(request);
@@ -37,7 +37,9 @@ function getBooks() {
 
     bookClient.getBooks(requests, md)
         .then((res) => {
-            console.log(`[getBooks] response: ${JSON.stringify(res)}`);
+            res.forEach((book: Book) => {
+                console.log(`[getBooks] response: ${JSON.stringify(book.toObject())}`);
+            });
             console.log(`[getBooks] done`);
         })
         .catch((err) => {
@@ -52,7 +54,9 @@ function getBooksViaAuthor() {
 
     bookClient.getBooksViaAuthor(request, md)
         .then((res) => {
-            console.log(`[getBooksViaAuthor] response: ${JSON.stringify(res)}`);
+            res.forEach((book: Book) => {
+                console.log(`[getBooksViaAuthor] response: ${JSON.stringify(book.toObject())}`);
+            });
             console.log(`[getBooksViaAuthor] done`);
         })
         .catch((err) => {
@@ -80,7 +84,7 @@ function getGreatesBook() {
         });
 }
 
-// getBook();
-// getBooks();
-// getBooksViaAuthor();
+getBook();
+getBooks();
+getBooksViaAuthor();
 getGreatesBook();

@@ -1,8 +1,8 @@
 import {GatewayApiBase, KoaRouter} from 'matrixes-lib';
 
 const API_PATHS = [
-    './book/BookApiService/getBookApi.ts',
-    './book/BookApiService/getBooksViaAuthorApi.ts',
+    './book/BookApiService/getBookApi',
+    './book/BookApiService/getAuthorBookApi',
 ];
 
 export default class RouteLoader {

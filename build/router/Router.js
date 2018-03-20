@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const matrixes_lib_1 = require("matrixes-lib");
 const API_PATHS = [
-    './book/BookApiService/getBookApi.ts',
-    './book/BookApiService/getBooksViaAuthorApi.ts',
+    './book/BookApiService/getBookApi',
+    './book/BookApiService/getAuthorBookApi',
 ];
 class RouteLoader {
     constructor() {

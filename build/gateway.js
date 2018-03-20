@@ -1,88 +1,51 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const grpc = require("grpc");
-const book_pb_1 = require("./proto/book/book_pb");
-const MSBookServiceClient_1 = require("./clients/book/MSBookServiceClient");
-const md = new grpc.Metadata();
-md.set('name', 'fengjie');
-let requests = [];
-for (let i = 1; i <= 10; i++) {
-    let request = new book_pb_1.GetBookRequest();
-    request.setIsbn(i);
-    requests.push(request);
+const matrixes_lib_1 = require("matrixes-lib");
+const Router_1 = require("./router/Router");
+class Server {
+    constructor() {
+        this._initialized = false;
+    }
+    init(isDev = false) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield Router_1.default.instance().init();
+            this.app = new matrixes_lib_1.Koa();
+            this.app.use(matrixes_lib_1.KoaBodyParser({ formLimit: '2048kb' }));
+            this.app.use(Router_1.default.instance().getRouter().routes());
+            this._initialized = true;
+            return Promise.resolve();
+        });
+    }
+    start() {
+        if (!this._initialized) {
+            return;
+        }
+        const host = '0.0.0.0';
+        const port = '8081';
+        this.app.listen(port, host, () => {
+            console.log(`server start, Address: ${host}:${port}!`);
+        });
+    }
 }
-const bookClient = new MSBookServiceClient_1.default('127.0.0.1:8080');
-bookClient.getGreatestBook(requests, md)
-    .then((res) => {
-    console.log(`[getGreatesBook] response: ${JSON.stringify(res.toObject())}`);
-    console.log(`[getGreatesBook] done`);
+const server = new Server();
+server.init(process.env.NODE_ENV === 'development')
+    .then(() => {
+    server.start();
 })
-    .catch((err) => {
-    console.log(`[getGreatesBook] err: ${err.message}`);
-    console.log(`[getGreatesBook] done`);
+    .catch((error) => {
+    console.log(`Gateway init failed error = ${error.stack}`);
 });
-// const client = new BookServiceClient('127.0.0.1:8080', grpc.credentials.createInsecure());
-// function getBook() {
-//     const request = new GetBookRequest();
-//     request.setIsbn(1);
-//
-//     // send request
-//     client.getBook(request, md, (err, response: Book) => {
-//         // handle response
-//         console.log(`[getBook] response: ${JSON.stringify(response.toObject())}`);
-//         console.log(`[getBook] done`);
-//     });
-// }
-//
-// function getBooks() {
-//     let call = client.getBooks(md) as Duplex;
-//
-//     // handle stream call
-//     call.on('data', (response: Book) => {
-//         console.log(`[getBooks] response: ${JSON.stringify(response.toObject())}`);
-//     });
-//     call.on('end', () => {
-//         console.log(`[getBooks] done`);
-//     });
-//
-//     // send request
-//     for (let i = 1; i <= 10; i++) {
-//         const request = new GetBookRequest();
-//         request.setIsbn(i);
-//         call.write(request);
-//     }
-//
-//     call.end();
-// }
-//
-// function getBooksViaAuthor() {
-//     const request = new GetBookViaAuthorRequest();
-//     request.setAuthor('fengjie');
-//
-//     let call = client.getBooksViaAuthor(request, md) as Readable;
-//     call.on('data', (response: Book) => {
-//         console.log(`[getBooksViaAuthor] response: ${JSON.stringify(response.toObject())}`);
-//     });
-//     call.on('end', () => {
-//         console.log(`[getBooksViaAuthor] done`);
-//     });
-// }
-//
-// function getGreatesBook() {
-//     let call: Writable = client.getGreatestBook(md, (error, response: Book) => {
-//         console.log(`[getGreatesBook] response: ${JSON.stringify(response.toObject())}`);
-//         console.log(`[getGreatesBook] done`);
-//     });
-//
-//     for (let i = 1; i <= 10; i++) {
-//         let request = new GetBookRequest();
-//         request.setIsbn(i);
-//         call.write(request);
-//     }
-//
-//     call.end();
-// }
-// getBook();
-// getBooks();
-// getBooksViaAuthor();
-// getGreatesBook();
+process.on('uncaughtException', (error) => {
+    console.log(`process on uncaughtException error = ${error.stack}`);
+});
+process.on('unhandledRejection', (error) => {
+    console.log(`process on unhandledRejection error = ${error.stack}`);
+});

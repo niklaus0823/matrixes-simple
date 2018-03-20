@@ -8,10 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getBookApiHandler = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
+const matrixes_lib_1 = require("matrixes-lib");
+const memcached_pb_1 = require("../../../../proto/memcached/memcached_pb");
+exports.memGetHandler = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
     let call = ctx.call;
     let callback = ctx.callback;
     let request = call.request;
+    try {
+        yield ctx.validate(request, {
+            key: matrixes_lib_1.joiType.vString.activate(),
+        });
+        callback(null, new memcached_pb_1.DataResponse());
+    }
+    catch (e) {
+        callback(e, null);
+    }
     yield next();
     return Promise.resolve();
 });
