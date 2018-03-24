@@ -5,6 +5,19 @@ package com.user;
 message User {
     int64 id = 1;
     string name = 2;
+    UserAuthor author = 3;
+}
+
+message UserAuthor {
+    int64 user_id = 1;
+    string author = 2;
+    repeated UserBook book = 3;
+}
+
+message UserBook {
+    int64 isbn = 1;
+    string title = 2;
+    string author = 3;
 }
 
 message GetUserRequest {

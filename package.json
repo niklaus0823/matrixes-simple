@@ -9,9 +9,12 @@
   "license": "MIT",
   "dependencies": {
     "google-protobuf": "^3.5.0",
-    "grpc": "^1.9.1"
+    "grpc": "^1.9.1",
+    "matrixes-lib": "^1.1.2",
+    "mockjs": "^1.0.1-beta3"
   },
   "devDependencies": {
-    "@types/google-protobuf": "^3.2.7"
+    "@types/google-protobuf": "^3.2.7",
+    "@types/mockjs": "^1.0.0"
   }
 }

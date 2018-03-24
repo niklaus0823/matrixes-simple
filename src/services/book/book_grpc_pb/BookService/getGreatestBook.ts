@@ -1,4 +1,12 @@
-import {RpcContext, RpcMiddleware, MiddlewareNext, IRpcServerCallback, IRpcServerReadableStream} from 'matrixes-lib';
+import {
+    RpcContext,
+    RpcMiddleware,
+    MiddlewareNext,
+    IRpcServerCallback,
+    IRpcServerReadableStream,
+    joi,
+    joiType
+} from 'matrixes-lib';
 import {GetBookRequest, Book} from '../../../../proto/book/book_pb';
 
 export const getGreatestBookHandler: RpcMiddleware = async (ctx: RpcContext, next: MiddlewareNext) => {
@@ -6,20 +14,38 @@ export const getGreatestBookHandler: RpcMiddleware = async (ctx: RpcContext, nex
     let callback = ctx.callback as IRpcServerCallback<Book>;
 
     console.log(`[getGreatesBookHandler] start`);
-    const book = await getGreatesBook(call, ctx);
-    console.log(`[getGreatesBookHandler] done`);
 
-    callback(null, book);
+    try {
+        const book = await getGreatesBook(call, ctx);
+
+        console.log(`[getBooksHandler] done`);
+
+        callback(null, book);
+
+    } catch (e) {
+        console.log(`[getBooksHandler] error: ${e.message}`);
+
+        call.emit('error', e);
+    }
+
     console.log(`[getGreatesBookHandler] end`);
     return Promise.resolve();
 };
 
 function getGreatesBook(call: IRpcServerReadableStream<GetBookRequest>, ctx?: RpcContext): Promise<Book> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         let lastRequest: GetBookRequest;
-        call.on('data', (request: GetBookRequest) => {
-            console.log(`[getGreatesBookHandler] request: ${JSON.stringify(request.toObject())}`);
-            lastRequest = request;
+        call.on('data', async (request: GetBookRequest) => {
+            try {
+                await ctx.validate(request, {
+                    isbn: joiType.vInt64.activate().required().greater(5).less(10),
+                });
+
+                console.log(`[getGreatesBookHandler] request: ${JSON.stringify(request.toObject())}`);
+                lastRequest = request;
+            } catch (e) {
+                reject(e);
+            }
         });
 
         call.on('end', () => {

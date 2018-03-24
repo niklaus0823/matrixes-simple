@@ -1,3 +1,4 @@
+import * as Mock from 'mockjs';
 import {GatewayApiBase, GatewayContext, MiddlewareNext, joi, joiType} from 'matrixes-lib';
 import {GetBookRequest, Book} from '../../../proto/book/book_pb';
 
@@ -24,7 +25,13 @@ class GetBookApi extends GatewayApiBase {
     }
 
     public async handleMock(ctx: GatewayContext, next: MiddlewareNext, params: RequestParams): Promise<Book.AsObject> {
-        return Promise.resolve((new Book()).toObject());
+        const response = new Book();
+
+        response.setIsbn(Mock.Random.natural());
+        response.setTitle(Mock.Random.string('symbol', 5, 10));
+        response.setAuthor(Mock.Random.string('symbol', 5, 10));
+
+        return Promise.resolve(response.toObject());
     }
 }
 

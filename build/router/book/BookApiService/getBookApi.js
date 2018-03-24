@@ -29,7 +29,8 @@ class GetBookApi extends matrixes_lib_1.GatewayApiBase {
     }
     handleMock(ctx, next, params) {
         return __awaiter(this, void 0, void 0, function* () {
-            return Promise.resolve((new book_pb_1.Book()).toObject());
+            const response = new book_pb_1.Book();
+            return Promise.resolve(response.toObject());
         });
     }
 }
