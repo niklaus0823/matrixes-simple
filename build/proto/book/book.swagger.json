@@ -1,0 +1,241 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "book/book.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/getBook": {
+      "post": {
+        "operationId": "GetBookApi",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/bookBook"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/bookGetBookRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BookApiService"
+        ]
+      }
+    },
+    "/v1/getBookUser": {
+      "post": {
+        "operationId": "GetAuthorBookApi",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/bookAuthorBook"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/bookGetAuthorBookApiRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BookApiService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "bookAuthorBook": {
+      "type": "object",
+      "properties": {
+        "isbn": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/userUser"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sub_tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "buyers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userUser"
+          }
+        },
+        "writers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/userUser"
+          }
+        }
+      }
+    },
+    "bookBook": {
+      "type": "object",
+      "properties": {
+        "isbn": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        }
+      }
+    },
+    "bookGetAuthorBookApiRequest": {
+      "type": "object",
+      "properties": {
+        "isbn": {
+          "type": "string",
+          "format": "int64",
+          "title": "*\n{\n\"required\": true,\n\"numberMin\": 5,\n\"numberMax\": 10\n}"
+        },
+        "type": {
+          "type": "string",
+          "title": "*\n{\n\"required\": true,\n\"enumOption\": [ \"GMAIL\", \"YAHOO\" ]\n}"
+        },
+        "author": {
+          "type": "string",
+          "title": "*\n{\n\"required\": true,\n\"stringLengthMin\": 5,\n\"stringLengthMax\": 10\n}"
+        },
+        "is_new": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "*\n{\n\"required\": true,\n\"defaultValue\": false,\n\"booleanTruthy\": [ \"1\", 1, \"true\" ],\n\"booleanFalsy\": [ \"0\", 0, \"false\" ]\n}"
+        },
+        "user": {
+          "$ref": "#/definitions/userUser",
+          "title": "*\n{\n\"required\": true\n}"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "*\n{\n\"required\": true,\n\"stringLengthMin\": 5,\n\"stringLengthMax\": 10\n\"regex\": \"/^[a-zA-Z]*$/\"\n}"
+        },
+        "sub_tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "*\n{\n\"required\": true,\n\"stringLengthMin\": 5,\n\"stringLengthMax\": 10\n}"
+        },
+        "buyers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userUser"
+          }
+        },
+        "writers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/userUser"
+          }
+        }
+      }
+    },
+    "bookGetBookRequest": {
+      "type": "object",
+      "properties": {
+        "isbn": {
+          "type": "string",
+          "format": "int64",
+          "title": "*\n{\n\"required\": true,\n\"numberMin\": 5,\n\"numberMax\": 10\n}"
+        }
+      }
+    },
+    "userUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/definitions/userUserAuthor"
+        }
+      }
+    },
+    "userUserAuthor": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "author": {
+          "type": "string"
+        },
+        "book": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userUserBook"
+          }
+        }
+      }
+    },
+    "userUserBook": {
+      "type": "object",
+      "properties": {
+        "isbn": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

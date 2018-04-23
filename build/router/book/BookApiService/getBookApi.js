@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const Mock = require("mockjs");
 const matrixes_lib_1 = require("matrixes-lib");
 const book_pb_1 = require("../../../proto/book/book_pb");
 class GetBookApi extends matrixes_lib_1.GatewayApiBase {
@@ -30,6 +31,9 @@ class GetBookApi extends matrixes_lib_1.GatewayApiBase {
     handleMock(ctx, next, params) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = new book_pb_1.Book();
+            response.setIsbn(Mock.Random.natural());
+            response.setTitle(Mock.Random.string('symbol', 5, 10));
+            response.setAuthor(Mock.Random.string('symbol', 5, 10));
             return Promise.resolve(response.toObject());
         });
     }
