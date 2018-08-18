@@ -9,6 +9,7 @@ import {getGreatestBookHandler} from './book/book_grpc_pb/BookService/getGreates
 import {getBooksHandler} from './book/book_grpc_pb/BookService/getBooks';
 import {getBookUserHandler} from './book/book_grpc_pb/BookService/getBookUser';
 import {getUserHandler} from './user/user_grpc_pb/UserService/getUser';
+import {Book} from '../proto/book/book_pb';
 
 export const registerServices = function (app: RpcApplication) {
     app.server.addService(BookServiceService, {

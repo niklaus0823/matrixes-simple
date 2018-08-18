@@ -265,27 +265,27 @@ proto.google.api.HttpRule.deserializeBinaryFromReader = function (msg, reader) {
         var field = reader.getFieldNumber();
         switch (field) {
             case 1:
-                var value = (reader.readString());
+                var value = /** @type {string} */ (reader.readString());
                 msg.setSelector(value);
                 break;
             case 2:
-                var value = (reader.readString());
+                var value = /** @type {string} */ (reader.readString());
                 msg.setGet(value);
                 break;
             case 3:
-                var value = (reader.readString());
+                var value = /** @type {string} */ (reader.readString());
                 msg.setPut(value);
                 break;
             case 4:
-                var value = (reader.readString());
+                var value = /** @type {string} */ (reader.readString());
                 msg.setPost(value);
                 break;
             case 5:
-                var value = (reader.readString());
+                var value = /** @type {string} */ (reader.readString());
                 msg.setDelete(value);
                 break;
             case 6:
-                var value = (reader.readString());
+                var value = /** @type {string} */ (reader.readString());
                 msg.setPatch(value);
                 break;
             case 8:
@@ -294,7 +294,7 @@ proto.google.api.HttpRule.deserializeBinaryFromReader = function (msg, reader) {
                 msg.setCustom(value);
                 break;
             case 7:
-                var value = (reader.readString());
+                var value = /** @type {string} */ (reader.readString());
                 msg.setBody(value);
                 break;
             case 11:
@@ -610,11 +610,11 @@ proto.google.api.CustomHttpPattern.deserializeBinaryFromReader = function (msg, 
         var field = reader.getFieldNumber();
         switch (field) {
             case 1:
-                var value = (reader.readString());
+                var value = /** @type {string} */ (reader.readString());
                 msg.setKind(value);
                 break;
             case 2:
-                var value = (reader.readString());
+                var value = /** @type {string} */ (reader.readString());
                 msg.setPath(value);
                 break;
             default:
